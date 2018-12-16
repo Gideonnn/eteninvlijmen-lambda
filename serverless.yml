@@ -1,0 +1,94 @@
+service: eteninvlijmen
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prd
+  region: eu-central-1
+
+functions:
+  entries-get:
+    handler: entries/get.get
+    events:
+      - http:
+          path: entries/{year}/{week}/{user}
+          method: get
+          cors: true
+
+  entries-upsert:
+    handler: entries/upsert.upsert
+    events:
+      - http:
+          path: entries/{year}/{week}/{user}
+          method: put
+          cors: true
+
+  users-create:
+    handler: users/create.create
+    events:
+      - http:
+          path: users
+          method: post
+          cors: true
+
+  users-delete:
+    handler: users/delete.delete
+    events:
+      - http:
+          path: users/{name}
+          method: delete
+          cors: true
+
+  users-get:
+    handler: users/get.get
+    events:
+      - http:
+          path: users/{name}
+          method: get
+          cors: true
+
+  users-list:
+    handler: users/list.list
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
+
+  users-update:
+    handler: users/update.update
+    events:
+      - http:
+          path: users/{name}
+          method: put
+          cors: true
+
+resources:
+  Resources:
+    entries:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: eteninvlijmen-entries
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    users:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: eteninvlijmen-users
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
