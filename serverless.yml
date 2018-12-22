@@ -15,6 +15,14 @@ functions:
           method: get
           cors: true
 
+  entries-list:
+    handler: entries/list.list
+    events:
+      - http:
+          path: entries/{year}/{week}
+          method: get
+          cors: true
+
   entries-upsert:
     handler: entries/upsert.upsert
     events:
