@@ -29,6 +29,9 @@ module.exports.upsert = (event, context, callback) => {
     },
     Item: {
       id,
+      year,
+      week,
+      user,
       prefs,
     },
   };
