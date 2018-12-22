@@ -7,7 +7,7 @@ const dynamoDb = new aws.DynamoDB.DocumentClient();
 module.exports.create = (event, context, callback) => {
   const { name, avatar } = JSON.parse(event.body);
 
-  if (typeof name !== 'string' || typeof avatar !== 'string') {
+  if (typeof name !== 'string') {
     console.error('Validation failed');
 
     callback(null, {
@@ -19,11 +19,27 @@ module.exports.create = (event, context, callback) => {
     return;
   }
 
+  const defaultAvatar =
+    'https://avataaars.io/?' +
+    'avatarStyle=Circle&' +
+    'topType=Default&' +
+    'hairColor=Default&' +
+    'hatColor=Default&' +
+    'accessoriesType=Default&' +
+    'facialHairType=Default&' +
+    'facialHairColor=Default&' +
+    'clotheType=Default&' +
+    'clotheColor=Default&' +
+    'eyeType=Default&' +
+    'eyebrowType=Default&' +
+    'mouthType=Default&' +
+    'skinColor=Default';
+
   const params = {
     TableName: 'eteninvlijmen-users',
     Item: {
-      name: name,
-      avatar: avatar,
+      name,
+      avatar: defaultAvatar,
     },
   };
 
