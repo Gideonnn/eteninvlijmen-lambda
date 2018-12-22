@@ -28,9 +28,13 @@ module.exports.get = (event, context, callback) => {
       return;
     }
 
+    const response = result.Item
+      ? result.Item.prefs
+      : [false, false, false, false, false, false, false];
+
     callback(null, {
       statusCode: 200,
-      body: JSON.stringify(result.Item.prefs),
+      body: JSON.stringify(response),
     });
   });
 };
