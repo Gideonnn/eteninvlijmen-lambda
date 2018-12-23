@@ -5,6 +5,13 @@ provider:
   runtime: nodejs8.10
   stage: prd
   region: eu-central-1
+  stackName: eteninvlijmen-stack
+  apiName: eteninvlijmen-api
+  deploymentBucket:
+    name: eteninvlijmen-lamda
+  deploymentPrefix: eteninvlijmen-serverless
+  apiKeys:
+    - eteninvlijmen-apikey
 
 functions:
   entries-get:
@@ -14,6 +21,7 @@ functions:
           path: entries/{year}/{week}/{user}
           method: get
           cors: true
+          private: true
 
   entries-list:
     handler: entries/list.list
@@ -22,6 +30,7 @@ functions:
           path: entries/{year}/{week}
           method: get
           cors: true
+          private: true
 
   entries-upsert:
     handler: entries/upsert.upsert
@@ -30,6 +39,7 @@ functions:
           path: entries/{year}/{week}/{user}
           method: put
           cors: true
+          private: true
 
   users-create:
     handler: users/create.create
@@ -38,6 +48,7 @@ functions:
           path: users
           method: post
           cors: true
+          private: true
 
   users-delete:
     handler: users/delete.delete
@@ -46,6 +57,7 @@ functions:
           path: users/{name}
           method: delete
           cors: true
+          private: true
 
   users-get:
     handler: users/get.get
@@ -54,6 +66,7 @@ functions:
           path: users/{name}
           method: get
           cors: true
+          private: true
 
   users-list:
     handler: users/list.list
@@ -62,6 +75,7 @@ functions:
           path: users
           method: get
           cors: true
+          private: true
 
   users-update:
     handler: users/update.update
@@ -70,6 +84,7 @@ functions:
           path: users/{name}
           method: put
           cors: true
+          private: true
 
 resources:
   Resources:
