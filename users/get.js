@@ -27,6 +27,11 @@ module.exports.get = (event, context, callback) => {
 
     callback(null, {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(result.Item),
     });
   });

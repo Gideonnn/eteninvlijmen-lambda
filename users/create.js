@@ -58,6 +58,11 @@ module.exports.create = (event, context, callback) => {
 
     callback(null, {
       statusCode: 201,
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(params.Item),
     });
   });
