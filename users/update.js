@@ -7,7 +7,7 @@ const dynamoDb = new aws.DynamoDB.DocumentClient();
 module.exports.update = (event, context, callback) => {
   const { avatar } = JSON.parse(event.body);
 
-  if (typeof avatar !== 'string') {
+  if (typeof avatar !== 'object') {
     console.error('Validation failed');
 
     callback(null, {
